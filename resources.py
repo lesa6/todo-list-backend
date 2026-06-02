@@ -2,6 +2,7 @@ import json
 import uuid
 import psycopg2
 import psycopg2.extras
+from typing import Self
 
 def print_with_indent(value, indent=0):
     indentation = " " * indent
@@ -30,7 +31,7 @@ class Entry:
         return res
     
     @classmethod
-    def entry_from_json(cls, value: dict) -> Entry:
+    def entry_from_json(cls, value: dict) -> Self:
         new_entry = cls(value['title'], entry_id=value.get('id'))
         for item in value.get('entries', []):
             new_entry.add_entry(cls.entry_from_json(item))
